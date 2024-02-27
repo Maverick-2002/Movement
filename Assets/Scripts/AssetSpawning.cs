@@ -12,6 +12,7 @@ public class AssetSpawning : MonoBehaviour
     void Start()
     {
         loadaddressables();
+
     }
 
     // Update is called once per frame
@@ -31,27 +32,5 @@ public class AssetSpawning : MonoBehaviour
         player.transform.position = new Vector3(0,1,0);
         player.transform.eulerAngles = new Vector3 (0,180,0);
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Portal"))
-        {
-            Addressables.LoadAssetAsync<GameObject>("Room").Completed += OnRoomLoaded;
-        }
-        else if (other.gameObject.CompareTag("SceneTrigger"))
-        {
-            Addressables.LoadSceneAsync("Level1").Completed += OnLevelLoaded;
-        }
-    }
-    private void OnLevelLoaded(AsyncOperationHandle<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance> obj2)
-    {
-  
-    }
-
-    private void OnRoomLoaded(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<GameObject> obj3)
-    {
-        Debug.Log(obj3.Result.name);
-        GameObject player = Instantiate(obj3.Result);
-        player.transform.position = new Vector3(0, 1, 0);
-        player.transform.position = new Vector3(1.7294f, 3.296516f, -0.6211069f);
-    }
+   
 }
