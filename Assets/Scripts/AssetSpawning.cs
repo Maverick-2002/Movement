@@ -12,15 +12,12 @@ public class AssetSpawning : MonoBehaviour
     void Start()
     {
         loadaddressables();
-
     }
-
     // Update is called once per frame
     void Update()
     {
         
     }
-
     private void loadaddressables()
     {
         Addressables.LoadAssetAsync<GameObject>("Player").Completed += OnPlayerLoaded;

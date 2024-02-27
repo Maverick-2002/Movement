@@ -9,11 +9,9 @@ public class Trigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Working Trigger");
         if (other.gameObject.CompareTag("Portal"))
         {
             Addressables.LoadAssetAsync<GameObject>("Room").Completed += OnRoomLoaded;
-            Debug.Log("work");
         }
         else if (other.gameObject.CompareTag("SceneTrigger"))
         {
