@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlayerProgress : MonoBehaviour
+[System.Serializable]
+public class PlayerProgress
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int CurrentMissionID;
+    public int LastMissionID;
+    public int totalplaytime;
+    public int Score;
+    public BallSpawner ball;
 
-    // Update is called once per frame
-    void Update()
+    public void DummyData()
     {
-        
+        totalplaytime = 0;
+        CurrentMissionID = 0;
+        LastMissionID = 0;
+        ball.playerScore = 0;
+        ball.playerLives = 0;
     }
 }
+

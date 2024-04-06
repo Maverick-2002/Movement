@@ -13,8 +13,8 @@ public class BallSpawner : MonoBehaviour
     private float timer; // Timer to track the duration
     private bool isFalling = true; // Flag to control falling state
     public Text timerText;
-    private int playerLives = 3; // Initial player lives
-    private int playerScore = 0; // Initial player score
+    public int playerLives = 3; // Initial player lives
+    public int playerScore = 0; // Initial player score
     public Text livesText;
     public Text scoreText;
 
