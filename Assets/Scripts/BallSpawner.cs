@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BallSpawner : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class BallSpawner : MonoBehaviour
             if (timer <= 0)
             {
                 isFalling = false;
+                EndGame();
             }
         }
 
@@ -44,7 +46,7 @@ public class BallSpawner : MonoBehaviour
         if (playerLives <= 0)
         {
             isFalling = false;
-            Debug.Log("Game Over!");
+            EndGame();
         }
 
         // Spawn balls continuously while falling is true
@@ -98,5 +100,11 @@ public class BallSpawner : MonoBehaviour
             livesText.text = "Lives: " + playerLives.ToString();
             scoreText.text = "Score: " + playerScore.ToString();
         }
+    }
+
+    void EndGame()
+    {
+        // Load PlayFab scene when the game ends
+        SceneManager.LoadScene("PlayFab");
     }
 }

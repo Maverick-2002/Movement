@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Addressables.unity
     guid: cc6b22eec713b00439aa3754258b10b1
+  - enabled: 1
+    path: Assets/Scenes/MiniGame.unity
+    guid: 6a99e4b2e9c9e6248acaf02384803db6
+  - enabled: 1
+    path: Assets/Scenes/PlayFab.unity
+    guid: 251b97693885b294c82397927cc4714b
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: eae4ee0d0e9545f418259bbdb6ea9728,
       type: 2}
