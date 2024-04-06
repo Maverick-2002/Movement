@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class player : MonoBehaviour
 {
     public int speed;
     private Vector3 movement;
@@ -13,13 +13,11 @@ public class PlayerMovement : MonoBehaviour
     {
         
     }
-
     // Update is called once per frame
     void Update()
     {
         transform.Translate(movement*speed*Time.deltaTime);
     }
-
     public void OnMovement(InputValue val)
     {
         SetMovement(val.Get<Vector2>());
@@ -33,7 +31,5 @@ public class PlayerMovement : MonoBehaviour
         movement = moveVal;
         movement.z = movement.y;
         movement.y = 0;
-
     }
- 
 }
