@@ -4,19 +4,23 @@ using UnityEngine.SceneManagement;
 
 public class BallSpawner : MonoBehaviour
 {
-    public GameObject ballPrefab; // Prefab of the first falling ball
-    public GameObject ballPrefab2; // Prefab of the second falling ball
-    public Transform[] spawnPoints; // Array of spawn points where the balls will be spawned
-    public float spawnInterval = 1.5f; // Interval between each ball spawn
-    public float fallingSpeed = 5f; // Speed at which the balls fall
-    public float duration = 30f; // Duration for which balls will fall
-    private float timer; // Timer to track the duration
-    private bool isFalling = true; // Flag to control falling state
+    public GameObject ballPrefab;
+    public GameObject ballPrefab2;
+    public Transform[] spawnPoints;
+    public float initialSpawnInterval = 1.5f;
+    public float fallingSpeed = 5f;
+    public float duration = 30f;
+    private float timer;
+    private bool isFalling = true;
     public Text timerText;
-    public int playerLives = 3; // Initial player lives
-    public int playerScore = 0; // Initial player score
+    public int playerLives = 3;
+    public int playerScore = 0;
+    public int level = 1;
+    public int GoodObjectPicked = 0;
+    public int BadObjectPicked = 0;
     public Text livesText;
     public Text scoreText;
+    public Text levelText;
 
     void Start()
     {
@@ -38,7 +42,7 @@ public class BallSpawner : MonoBehaviour
             if (timer <= 0)
             {
                 isFalling = false;
-                EndGame();
+                ProceedToNextLevel();
             }
         }
 
@@ -52,7 +56,7 @@ public class BallSpawner : MonoBehaviour
         // Spawn balls continuously while falling is true
         if (isFalling && timer >= 0)
         {
-            if (Time.time % spawnInterval < Time.deltaTime)
+            if (Time.time % GetSpawnInterval() < Time.deltaTime)
             {
                 // Get a random spawn point index
                 int randomSpawnIndex = Random.Range(0, spawnPoints.Length);
@@ -73,15 +77,29 @@ public class BallSpawner : MonoBehaviour
         }
     }
 
+    float GetSpawnInterval()
+    {
+        // Adjust spawn interval based on level
+        return initialSpawnInterval - (level * 0.25f); // Decrease spawn interval by 0.25 each level
+    }
+
     public void ReduceLives()
     {
         playerLives--;
+        BadObjectPicked++;
         UpdateUI();
     }
 
     public void IncreaseScore()
     {
         playerScore++;
+        GoodObjectPicked++;
+        UpdateUI();
+    }
+
+    public void IncreaseLevel()
+    {
+        level++;
         UpdateUI();
     }
 
@@ -95,16 +113,25 @@ public class BallSpawner : MonoBehaviour
 
     void UpdateUI()
     {
-        if (livesText != null && scoreText != null)
+        if (livesText != null && scoreText != null && levelText != null)
         {
             livesText.text = "Lives: " + playerLives.ToString();
             scoreText.text = "Score: " + playerScore.ToString();
+            levelText.text = "Level: " + level.ToString();
         }
+    }
+
+    void ProceedToNextLevel()
+    {
+        // Increment level and reset timer for the next level
+        IncreaseLevel();
+        timer = duration;
+        isFalling = true;
     }
 
     void EndGame()
     {
-        // Load PlayFab scene when the game ends
-        SceneManager.LoadScene("PlayFab");
+        // Implement end game logic here
+        Debug.Log("Game Over!");
     }
 }
