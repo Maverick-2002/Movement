@@ -1,32 +1,37 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PlayFab.ClientModels;
 using TMPro;
 using PlayFab;
+using UnityEngine.UI;
 using UnityEditor;
 
 public class AuthenticatePlayer : MonoBehaviour
 {
     public PlayerProgress progress;
-    public TMP_InputField emailid, password;
-    public GameObject MenuPanel,login,NameChange,Welcome;
+   // public TMP_InputField emailid, password;
+    public GameObject NameChange, Welcome,data;
+    public Text badText;
+    public Text goodText;
+    public Text levelText;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void GUI_FetchData()
     {
         GetUserDataRequest request = new GetUserDataRequest()
         {
-            Keys = new List<string>(){"Progress"}
+            Keys = new List<string>() { "Progress" }
         };
 
         PlayFabClientAPI.GetUserData(request, OnUserData, OnUserDataUpdateFailed);
@@ -34,9 +39,9 @@ public class AuthenticatePlayer : MonoBehaviour
     private void OnUserData(GetUserDataResult result)
     {
         Debug.Log($"User Data Recieved");
-        if(result.Data != null)
+        if (result.Data != null)
         {
-            foreach(string key in result.Data.Keys)
+            foreach (string key in result.Data.Keys)
             {
                 Debug.Log($"User data Received {key} - {result.Data[key].Value}");
                 if (key.Equals("Progress"))
@@ -53,9 +58,9 @@ public class AuthenticatePlayer : MonoBehaviour
         string progressData = JsonUtility.ToJson(playerProgress);
         UpdateUserDataRequest request = new UpdateUserDataRequest()
         {
-            Data = new Dictionary<string, string>() { { "Character Name ",characterName.text },{"Progress", progressData } }
+            Data = new Dictionary<string, string>() { { "Character Name ", characterName.text }, { "Progress", progressData } }
         };
-        PlayFabClientAPI.UpdateUserData(request,OnUserDataUpdated, OnUserDataUpdateFailed);
+        PlayFabClientAPI.UpdateUserData(request, OnUserDataUpdated, OnUserDataUpdateFailed);
 
     }
     public void GUI_Login(TMP_InputField displayname)
@@ -85,5 +90,20 @@ public class AuthenticatePlayer : MonoBehaviour
     {
         Debug.Log("Data Update Success");
     }
-    
+    public void GUI()
+    {
+        Welcome.SetActive(true);
+        NameChange.SetActive(false );
+    }
+    public void GUI_Data()
+    {
+        NameChange.SetActive(false);
+        data.SetActive(true);
+    }
+    public void GUI_Name()
+    {
+        NameChange.SetActive(true);
+        data.SetActive(false);
+    }
+   
 }
