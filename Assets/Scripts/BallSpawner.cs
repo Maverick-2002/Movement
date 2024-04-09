@@ -139,6 +139,7 @@ public class BallSpawner : MonoBehaviour
     {
         // Implement end game logic here
         Debug.Log("Game Over!");
+        SceneManager.LoadScene("Playfab");
     }
 
   
